@@ -19,8 +19,8 @@ vim.keymap.set('t', '<C-w>', '<C-\\><C-n><C-w>', map_opts)
 
 -- diagnostics
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, map_opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, map_opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, map_opts)
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end, map_opts)
+vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end, map_opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, map_opts)
 
 -- nvim-tree
