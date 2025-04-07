@@ -3,10 +3,24 @@ local lsp = require('lspconfig')
 local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 -- remove diagnostic characters from sign column and highlight line numbers of diagnostics
-local dsigns = { 'DiagnosticSignError', 'DiagnosticSignWarn', 'DiagnosticSignHint', 'DiagnosticSignInfo', }
-for _, s in pairs(dsigns) do
-    vim.fn.sign_define(s, { text = '', texthl = s, numhl = s, })
-end
+local s = vim.diagnostic.severity
+vim.diagnostic.config({
+    virtual_text = {},
+    signs = {
+        text = {
+            [s.ERROR] = '',
+            [s.WARN] = '',
+            [s.INFO] = '',
+            [s.HINT] = '',
+        },
+        numhl = {
+            [s.ERROR] = 'DiagnosticSignError',
+            [s.WARN] = 'DiagnosticSignWarn',
+            [s.INFO] = 'DiagnosticSignHint',
+            [s.HINT] = 'DiagnosticSignInfo',
+        },
+    },
+})
 
 -- format the current buffer using null-ls config if available, otherwise use
 -- any other available formatter
