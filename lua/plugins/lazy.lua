@@ -13,28 +13,26 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup {
-    -- library
-    'nvim-lua/plenary.nvim',
-
     -- misc
-    { 'lukas-reineke/indent-blankline.nvim', version = '*' },
-    { 'lewis6991/gitsigns.nvim',             version = '*', },
-    { 'preservim/nerdcommenter',             version = '*', },
+    { 'lukas-reineke/indent-blankline.nvim', version = '3.x.x' },
+    { 'lewis6991/gitsigns.nvim',             version = '1.x.x' },
+    { 'preservim/nerdcommenter',             version = '2.x.x' },
     {
         'nvim-lualine/lualine.nvim',
+        version = '*',
         dependencies = 'nvim-tree/nvim-web-devicons',
     },
-    'windwp/nvim-autopairs',
-    'mbbill/undotree',
+    { 'windwp/nvim-autopairs', version = '*' },
+    { 'mbbill/undotree',       version = '*' },
 
     -- themes
-    { 'folke/tokyonight.nvim', version = '*', },
-    { 'catppuccin/nvim',       version = '*', },
+    { 'folke/tokyonight.nvim', version = '4.x.x', },
+    { 'catppuccin/nvim',       version = '1.x.x', },
 
     -- nvim-tree
     {
         'nvim-tree/nvim-tree.lua',
-        version = '*',
+        version = '1.x.x',
         dependencies = 'nvim-tree/nvim-web-devicons',
     },
 
@@ -51,22 +49,22 @@ require('lazy').setup {
     -- treesitter
     {
         'nvim-treesitter/nvim-treesitter',
-        version = '*',
+        version = '0.9.x',
         build = ':TSUpdate',
     },
-    'nvim-treesitter/nvim-treesitter-context',
+    { 'nvim-treesitter/nvim-treesitter-context', version = '*' },
 
     -- lsp,
-    { 'williamboman/mason.nvim',           version = '*', },
-    { 'neovim/nvim-lspconfig',             version = '*', },
-    { 'williamboman/mason-lspconfig.nvim', version = '*', },
-    'nvimtools/none-ls.nvim',
-    { 'jay-babu/mason-null-ls.nvim', version = '*', },
+    { 'mason-org/mason.nvim',                    version = '2.x.x', },
+    { 'neovim/nvim-lspconfig',                   version = '2.x.x', },
+    { 'mason-org/mason-lspconfig.nvim',          version = '2.x.x', },
+    { 'nvimtools/none-ls.nvim',                  version = '*' },
+    { 'jay-babu/mason-null-ls.nvim',             version = '2.x.x', },
 
     -- autocomplete
     {
         'saghen/blink.cmp',
-        version = '*',
+        version = '1.x.x',
         dependencies = 'rafamadriz/friendly-snippets',
     },
 }
