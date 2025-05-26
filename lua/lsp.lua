@@ -1,6 +1,8 @@
 local lsp = require('lspconfig')
+local null_ls = require('null-ls')
+local blink = require('blink.cmp')
 
-local capabilities = require('blink.cmp').get_lsp_capabilities()
+local capabilities = blink.get_lsp_capabilities()
 
 -- remove diagnostic characters from sign column and highlight line numbers of diagnostics
 local s = vim.diagnostic.severity
@@ -27,8 +29,8 @@ vim.diagnostic.config({
 local function format(bufnr)
     vim.lsp.buf.format {
         filter = function(client)
-            local null_ls = vim.lsp.get_clients({ name = 'null-ls', })[1]
-            if (null_ls and vim.lsp.buf_is_attached(bufnr, null_ls.id)) then
+            local null_ls_clients = vim.lsp.get_clients({ name = 'null-ls', })[1]
+            if (null_ls_clients and vim.lsp.buf_is_attached(bufnr, null_ls.id)) then
                 return client.name == 'null-ls'
             else
                 return true
@@ -58,34 +60,12 @@ require('mason-null-ls').setup {
     ensure_installed = {},
 }
 
-local null_ls = require('null-ls')
 null_ls.setup { sources = { null_ls.builtins.formatting.prettier, }, }
 
-require('mason-lspconfig').setup_handlers {
-    function(server_name)
-        lsp[server_name].setup { on_attach = on_attach, capabilities = capabilities, }
-    end,
-
-    ['lua_ls'] = function()
-        lsp.lua_ls.setup {
-            settings = {
-                Lua = {
-                    diagnostics = { globals = {}, },
-                    workspace = {
-                        checkThirdParty = false,
-
-                        library = {
-                            vim.env.VIMRUNTIME,
-                        },
-                    },
-                    telemetry = { enable = false, },
-                },
-            },
-            on_attach = on_attach,
-            capabilities = capabilities,
-        }
-    end,
-}
+vim.lsp.config("*", {
+    capabilities = capabilities,
+    on_attach = on_attach,
+})
 
 -- use system clangd if mason clangd is not installed
 lsp.clangd.setup { on_attach = on_attach, capabilities = capabilities, }
